@@ -11,6 +11,11 @@ export class BookmarkController {
         return this.bookmarkService.index()
     }
 
+    @Get(':id')
+    show(@Param('id', ParseIntPipe) id) {
+        return this.bookmarkService.show(id)
+    }
+
     @Post()
     create(@Body() body: createBookmarkDto) {
         return this.bookmarkService.create(body)

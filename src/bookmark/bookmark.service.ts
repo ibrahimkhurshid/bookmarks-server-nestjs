@@ -17,6 +17,14 @@ export class BookmarkService {
         return this.bookmarkRepository.find()
     }
 
+    show(id: number) {
+        return this.bookmarkRepository.find({
+            where: {
+                id: id
+            }
+        })
+    }
+
     create(bookmarkDto: createBookmarkDto) {
         const titlePromise = (async () => {
             return parser(bookmarkDto.url);
@@ -41,10 +49,10 @@ export class BookmarkService {
     }
 
     delete(id: number) {
-        return `Delete ${id}`
+        return this.bookmarkRepository.delete(id)
     }
 
-    update(id: number) {
+    update(id: number,) {
         return `update ${id}`
     }
 }
