@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Bookmark } from "./bookmark.entity";
-import { createBookmarkDto } from "./createBookmarkDto";
+import { createBookmarkDto } from "../dtos/createBookmarkDto";
 const { parser } = require('html-metadata-parser')
 
 
@@ -29,7 +29,6 @@ export class BookmarkService {
         const titlePromise = (async () => {
             return parser(bookmarkDto.url);
         })();
-        console.log(titlePromise)
         titlePromise.then(
             (res) => {
                 const title = res['meta']['title']
@@ -37,14 +36,18 @@ export class BookmarkService {
                     url: bookmarkDto.url,
                     title: title
                 }
+                console.log(newBookmark)
+
                 return this.bookmarkRepository.save(newBookmark)
             }, (rej) => {
-                const title = "error getting"
+                const title = "Loading..."
                 const newBookmark = {
                     url: bookmarkDto.url,
                     title: title
                 }
-                return this.bookmarkRepository.save(newBookmark)
+                console.log(newBookmark)
+                this.bookmarkRepository.save(newBookmark)
+                return `$Error: ${rej} :: {newBookmark}`
             })
     }
 

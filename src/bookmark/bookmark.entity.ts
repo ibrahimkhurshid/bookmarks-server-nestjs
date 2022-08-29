@@ -8,10 +8,12 @@ export class Bookmark {
     @Column()
     url: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     title: string
     @BeforeInsert() async convert() {
-        this.title = this.title.toUpperCase()
+        this.title = this.title.toLowerCase()
     }
 
 }
