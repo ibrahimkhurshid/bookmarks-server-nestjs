@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Like, Repository } from "typeorm";
 import { Bookmark } from "./bookmark.entity";
 import { createBookmarkDto } from "../dtos/createBookmarkDto";
 const { parser } = require('html-metadata-parser')
@@ -57,5 +57,13 @@ export class BookmarkService {
 
     update(id: number,) {
         return `update ${id}`
+    }
+
+    search(query: string) {
+        return this.bookmarkRepository.find({
+            where: {
+                url: Like(`%${query}%`)
+            }
+        })
     }
 }

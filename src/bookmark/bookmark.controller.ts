@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { BookmarkService } from "./bookmark.service";
 import { createBookmarkDto } from '../dtos/createBookmarkDto'
 
@@ -11,11 +11,15 @@ export class BookmarkController {
         return this.bookmarkService.index()
     }
 
+    @Get('search/')
+    search(@Query('url') url) {
+        return this.bookmarkService.search(url)
+    }
+
     @Get(':id')
     show(@Param('id', ParseIntPipe) id) {
         return this.bookmarkService.show(id)
     }
-
 
     @Post()
     @UsePipes(new ValidationPipe())
@@ -32,4 +36,6 @@ export class BookmarkController {
     update(@Param('id', ParseIntPipe) id) {
         return this.bookmarkService.update(id)
     }
+
+
 }
