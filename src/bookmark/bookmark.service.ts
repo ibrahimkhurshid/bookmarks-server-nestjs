@@ -5,7 +5,6 @@ import { Bookmark } from "./bookmark.entity";
 import { createBookmarkDto } from "../dtos/createBookmarkDto";
 const { parser } = require('html-metadata-parser')
 
-
 @Injectable()
 export class BookmarkService {
     constructor(
