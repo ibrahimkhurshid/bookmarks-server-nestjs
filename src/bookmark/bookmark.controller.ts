@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Query, Req, UsePipes, ValidationPipe } from "@nestjs/common";
 import { BookmarkService } from "./bookmark.service";
 import { createBookmarkDto } from '../dtos/createBookmarkDto'
 
@@ -7,7 +7,8 @@ export class BookmarkController {
     constructor(private bookmarkService: BookmarkService) { }
 
     @Get()
-    index() {
+    index(@Req() req) {
+        console.log(req.headers.secret)
         return this.bookmarkService.index()
     }
 

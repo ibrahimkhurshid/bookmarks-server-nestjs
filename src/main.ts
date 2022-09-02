@@ -1,13 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { DocumentBuilder } from '@nestjs/swagger/dist/document-builder';
+import { AppGuard } from './app.guard';
 import { AppModule } from './app.module';
 
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors()
-
+  app.useGlobalGuards(new AppGuard())
 
   const config = new DocumentBuilder()
     .setTitle('Bookmarks Api')
